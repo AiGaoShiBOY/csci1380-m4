@@ -10,7 +10,7 @@ function getID(obj) {
 
 // The NID is the SHA256 hash of the JSON representation of the node
 function getNID(node) {
-  node = {ip: node.ip, port: node.port};
+  node = { ip: node.ip, port: node.port };
   return getID(node);
 }
 
@@ -32,10 +32,34 @@ function naiveHash(kid, nids) {
 }
 
 function consistentHash(kid, nids) {
+  const idList = nids.map((e) => {
+    return idToNum(e);
+  });
+  const sortedIdsList = idList.slice().sort((a, b) => a - b);
+  const knum = idToNum(kid);
+  let nextIndex = sortedIdsList.findIndex(num => num >= knum);
+  if (nextIndex === -1) {
+    nextIndex = 0;
+  }
+  const nextIdNum = sortedIdsList[nextIndex];
+  return nids.find(nid => idToNum(nid) === nextIdNum);
 }
 
 
+
 function rendezvousHash(kid, nids) {
+  let maxNum = -Infinity;
+  let res;
+  for(let nid of nids){
+    const concated  = kid + nid;
+    const id = getID(concated);
+    const idNum = idToNum(id);
+    if(idNum > maxNum){
+      maxNum = idNum;
+      res = nid;
+    }
+  }
+  return res;
 }
 
 module.exports = {
