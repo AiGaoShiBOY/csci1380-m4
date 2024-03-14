@@ -1,4 +1,3 @@
-const local = require('../local/local');
 const { id } = require('../util/util');
 
 const mem = function (config) {
@@ -6,9 +5,9 @@ const mem = function (config) {
   context.gid = config.gid || 'all';
   context.hash = config.hash || id.naiveHash;
   let distribution = global.distribution;
-  if (!distribution) {
-    throw new Error('Distribution not found');
-  }
+  // if (!distribution) {
+  //   throw new Error('Distribution not found');
+  // }
   return {
     put: function (value, key, callback) {
       callback = callback || function () { };
@@ -22,6 +21,10 @@ const mem = function (config) {
         const nids = nodesArray.map((node) => id.getNID(node));
 
         // get the hash of the value
+        // if the key is null, do multiple hash;
+        if (!key) {
+          key = id.getID(value);
+        }
         const kid = id.getID(key);
         const expectedHash = context.hash(kid, nids);
 
