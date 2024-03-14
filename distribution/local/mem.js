@@ -2,60 +2,90 @@ const { id, serialize } = require('../util/util')
 
 const mem = {};
 
-global.localMap = new Map();
+global.localMapSet = new Map();
+localMapSet.set('local', new Map());
 
 mem.put = function (value, key, callback) {
   callback = callback || function () { };
-  localMap = global.localMap;
-  if (!localMap) {
-    callback(new Error('Local storage not found'), null);
-    return;
+  let realKey;
+  let gid;
+  if (typeof key === 'string' || !key) {
+    realKey = key || id.getID(value);
+    gid = 'local';
   }
-  if (!key) {
-    key = id.getID(value);
+  else {
+    realKey = key.key || id.getID(value);
+    gid = key.gid;
   }
-  if (localMap.has(key)) {
+  let localMap;
+  if (global.localMapSet.has(gid)) {
+    localMap = global.localMapSet.get(gid);
+  } else {
+    global.localMapSet.set(gid, new Map());
+    localMap = global.localMapSet.get(gid);
+  }
+  if (localMap.has(realKey)) {
     callback(null, value);
     return;
   }
-  localMap.set(key, value);
+  localMap.set(realKey, value);
   callback(null, value);
   return;
 };
 
 mem.get = function (key, callback) {
   callback = callback || function () { };
-  localMap = global.localMap;
+  let realKey;
+  let gid;
+  if (typeof key === 'string' || !key) {
+    realKey = key;
+    gid = 'local';
+  }
+  else {
+    realKey = key.key;
+    gid = key.gid;
+  }
+  localMap = global.localMapSet.get(gid);
   if (!localMap) {
     callback(new Error('Local storage not found'), null);
     return;
   }
-  if(!key){
+  if (!realKey) {
     callback(null, [...localMap.keys()]);
     return;
   }
-  if(!localMap.has(key)){
+  if (!localMap.has(realKey)) {
     console.log(localMap);
     callback(new Error('Key not find'), null);
     return;
   }
-  callback(null, localMap.get(key));
+  callback(null, localMap.get(realKey));
   return;
 };
 
 mem.del = function (key, callback) {
   callback = callback || function () { };
-  localMap = global.localMap;
+  let realKey;
+  let gid;
+  if (typeof key === 'string' || !key) {
+    realKey = key;
+    gid = 'local';
+  }
+  else {
+    realKey = key.key;
+    gid = key.gid;
+  }
+  localMap = global.localMapSet.get(gid);
   if (!localMap) {
     callback(new Error('local storage not found'), null);
     return;
   }
-  if(!localMap.has(key)){
+  if (!localMap.has(realKey)) {
     callback(new Error('key not find'), null);
     return;
   }
-  const deletedVal = localMap.get(key);
-  localMap.delete(key);
+  const deletedVal = localMap.get(realKey);
+  localMap.delete(realKey);
   callback(null, deletedVal);
   return;
 }

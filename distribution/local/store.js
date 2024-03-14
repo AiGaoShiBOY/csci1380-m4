@@ -13,20 +13,27 @@
 const fs = require('fs');
 const path = require('path');
 const { id, serialize, deserialize } = require('../util/util');
-const storeFolderPath = path.join(__dirname, '../../store');
-
-if (!fs.existsSync(storeFolderPath)) {
-  fs.mkdirSync(storeFolderPath, { recursive: true });
-}
 
 const store = {};
 
 store.put = function (value, key, callback) {
   callback = callback || function () { };
-  if (!key) {
-    key = id.getID(value);
+  let realKey;
+  let gid;
+  if (typeof key === 'string' || !key) {
+    realKey = key || id.getID(value);
+    gid = 'local';
   }
-  const filePath = path.join(storeFolderPath, key);
+  else {
+    realKey = key.key || id.getID(value);
+    gid = key.gid;
+  }
+  const storeFolderPath = path.join(__dirname, '../../store', gid);
+  if (!fs.existsSync(storeFolderPath)) {
+    fs.mkdirSync(storeFolderPath, { recursive: true });
+  }
+
+  const filePath = path.join(storeFolderPath, realKey);
 
   if (fs.existsSync(filePath)) {
     callback(null, value);
@@ -44,7 +51,21 @@ store.put = function (value, key, callback) {
 
 store.get = function (key, callback) {
   callback = callback || function () { };
-  if (!key) {
+  let realKey;
+  let gid;
+  if (typeof key === 'string' || !key) {
+    realKey = key;
+    gid = 'local';
+  } else {
+    realKey = key.key;
+    gid = key.gid;
+  }
+  const storeFolderPath = path.join(__dirname, '../../store', gid);
+  if (!fs.existsSync(storeFolderPath)) {
+    callback(new Error('Group file storage not found!'), null);
+    return;
+  }
+  if (!realKey) {
     fs.readdir(storeFolderPath, (err, files) => {
       if (err) {
         callback(err, null);
@@ -55,7 +76,7 @@ store.get = function (key, callback) {
     return;
   }
 
-  const filePath = path.join(storeFolderPath, key);
+  const filePath = path.join(storeFolderPath, realKey);
   if (!fs.existsSync(filePath)) {
     callback(new Error('Key not found'), null);
     return;
@@ -73,7 +94,23 @@ store.get = function (key, callback) {
 
 store.del = function (key, callback) {
   callback = callback || function () { };
-  const filePath = path.join(storeFolderPath, key);
+  let realKey;
+  let gid;
+  if (typeof key === 'string' || !key) {
+    realKey = key;
+    gid = 'local';
+  } else {
+    realKey = key.key;
+    gid = key.gid;
+  }
+
+  const storeFolderPath = path.join(__dirname, '../../store', gid);
+  if (!fs.existsSync(storeFolderPath)) {
+    callback(new Error('Group file storage not found!'), null);
+    return;
+  }
+
+  const filePath = path.join(storeFolderPath, realKey);
 
   if (!fs.existsSync(filePath)) {
     callback(new Error('Key not found'), null);

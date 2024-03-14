@@ -59,7 +59,7 @@ function rendezvousHash(kid, nids) {
       res = nid;
     }
   }
-  return res;
+  return res; 
 }
 
 module.exports = {
