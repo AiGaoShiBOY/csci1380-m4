@@ -26,7 +26,7 @@ const store = function (config) {
           key = id.getID(value);
         }
         const kid = id.getID(key);
-        const expectedHash = context.hash(kid, nids);
+        const expectedHash = context.hash(kid, nids.slice());
 
         const targetIdx = nids.indexOf(expectedHash);
         const targetNode = nodesArray[targetIdx];
@@ -67,7 +67,7 @@ const store = function (config) {
 
           // get the hash of the value
           const kid = id.getID(key);
-          const expectedHash = context.hash(kid, nids);
+          const expectedHash = context.hash(kid, nids.slice());
 
           const targetIdx = nids.indexOf(expectedHash);
           const targetNode = nodesArray[targetIdx];
@@ -124,7 +124,7 @@ const store = function (config) {
 
         // get the hash of the value
         const kid = id.getID(key);
-        const expectedHash = context.hash(kid, nids);
+        const expectedHash = context.hash(kid, nids.slice());
 
         const targetIdx = nids.indexOf(expectedHash);
         const targetNode = nodesArray[targetIdx];
@@ -152,6 +152,97 @@ const store = function (config) {
         });
       });
     },
+    reconf: function (originalGroup, callback) {
+      callback = callback || function () { };
+      distribution.local.groups.get(context.gid, (e, v) => {
+        if (e) {
+          callback(e, null);
+          return;
+        }
+        // get all the nodes
+        const oldGroup = Object.values(originalGroup);
+        const newGroup = Object.values(v);
+
+        // get all the keys
+        distribution[context.gid].store.get(null, (e, v) => {
+          if (Object.keys(e).length !== 0) {
+            callback(e, null);
+            return;
+          }
+
+          const oldNids = oldGroup.map((node) => id.getNID(node));
+          const newNids = newGroup.map((node) => id.getNID(node));
+
+          // iterate every key
+          let needReconf = 0;
+
+          v.forEach((key) => {
+
+            const kid = id.getID(key);
+            const oldHash = context.hash(kid, oldNids.slice());
+            const newHash = context.hash(kid, newNids.slice());
+
+
+            // needs relocate
+            if (oldHash !== newHash) {
+
+              needReconf += 1;
+
+              // del data in the old node
+              oldIdx = oldNids.indexOf(oldHash);
+              oldNode = oldGroup[oldIdx];
+
+              const keyWithGid = {
+                key: key,
+                gid: context.gid
+              }
+
+              const message = [keyWithGid];
+              const oldRemote = {
+                node: { ip: oldNode.ip, port: oldNode.port },
+                service: 'store',
+                method: 'del',
+              };
+
+              distribution.local.comm.send(message, oldRemote, (e, value) => {
+                if (e) {
+                  callback(e);
+                  return;
+                }
+
+                // put the data to the new node
+                // the data deleted is store in value
+                newIdx = newNids.indexOf(newHash);
+                newNode = newGroup[newIdx];
+
+                const keyWithGid = {
+                  key: key,
+                  gid: context.gid
+                }
+
+                const message = [value, keyWithGid];
+                const newRemote = {
+                  node: { ip: newNode.ip, port: newNode.port },
+                  service: 'store',
+                  method: 'put',
+                };
+                distribution.local.comm.send(message, newRemote, (e, v) => {
+                  if (e) {
+                    callback(e);
+                    return;
+                  }
+                  needReconf -= 1;
+                  if (needReconf === 0) {
+                    callback(null, 1);
+                  }
+                });
+              });
+            }
+          });
+
+        });
+      });
+    }
   };
 };
 

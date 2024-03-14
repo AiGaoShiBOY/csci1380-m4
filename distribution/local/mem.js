@@ -55,8 +55,7 @@ mem.get = function (key, callback) {
     return;
   }
   if (!localMap.has(realKey)) {
-    console.log(localMap);
-    callback(new Error('Key not find'), null);
+    callback(new Error(`mem.get: Key ${realKey} ${JSON.stringify(localMap)}  ${JSON.stringify(global.nodeConfig)} not find`), null);
     return;
   }
   callback(null, localMap.get(realKey));
@@ -81,7 +80,7 @@ mem.del = function (key, callback) {
     return;
   }
   if (!localMap.has(realKey)) {
-    callback(new Error('key not find'), null);
+    callback(new Error('mem.del: key not find'), null);
     return;
   }
   const deletedVal = localMap.get(realKey);
