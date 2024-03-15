@@ -12,25 +12,24 @@
 
 const fs = require('fs');
 const path = require('path');
-const { id, serialize, deserialize } = require('../util/util');
+const {id, serialize, deserialize} = require('../util/util');
 
 const store = {};
 
-store.put = function (value, key, callback) {
-  callback = callback || function () { };
+store.put = function(value, key, callback) {
+  callback = callback || function() {};
   let realKey;
   let gid;
   if (typeof key === 'string' || !key) {
     realKey = key || id.getID(value);
     gid = 'local';
-  }
-  else {
+  } else {
     realKey = key.key || id.getID(value);
     gid = key.gid;
   }
   const storeFolderPath = path.join(__dirname, '../../store', gid);
   if (!fs.existsSync(storeFolderPath)) {
-    fs.mkdirSync(storeFolderPath, { recursive: true });
+    fs.mkdirSync(storeFolderPath, {recursive: true});
   }
 
   const filePath = path.join(storeFolderPath, realKey);
@@ -49,8 +48,8 @@ store.put = function (value, key, callback) {
   });
 };
 
-store.get = function (key, callback) {
-  callback = callback || function () { };
+store.get = function(key, callback) {
+  callback = callback || function() {};
   let realKey;
   let gid;
   if (typeof key === 'string' || !key) {
@@ -82,7 +81,7 @@ store.get = function (key, callback) {
     return;
   }
 
-  fs.readFile(filePath, { encoding: 'utf8' }, (err, data) => {
+  fs.readFile(filePath, {encoding: 'utf8'}, (err, data) => {
     if (err) {
       callback(err, null);
       return;
@@ -92,8 +91,8 @@ store.get = function (key, callback) {
   });
 };
 
-store.del = function (key, callback) {
-  callback = callback || function () { };
+store.del = function(key, callback) {
+  callback = callback || function() {};
   let realKey;
   let gid;
   if (typeof key === 'string' || !key) {
@@ -117,7 +116,7 @@ store.del = function (key, callback) {
     return;
   }
 
-  fs.readFile(filePath, { encoding: 'utf8' }, (err, data) => {
+  fs.readFile(filePath, {encoding: 'utf8'}, (err, data) => {
     if (err) {
       callback(err, null);
       return;

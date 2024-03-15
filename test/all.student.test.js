@@ -1,4 +1,4 @@
-global.nodeConfig = { ip: '127.0.0.1', port: 7000 };
+global.nodeConfig = {ip: '127.0.0.1', port: 7000};
 const distribution = require('../distribution');
 const id = distribution.util.id;
 
@@ -13,7 +13,6 @@ const group3Group = {};
 // This group is used for {adding,removing} {groups,nodes}
 const group4Group = {};
 
-
 /*
    This hack is necessary since we can not
    gracefully stop the local listening node.
@@ -22,16 +21,16 @@ const group4Group = {};
 */
 let localServer = null;
 
-const n1 = { ip: '127.0.0.1', port: 8000 };
-const n2 = { ip: '127.0.0.1', port: 8001 };
-const n3 = { ip: '127.0.0.1', port: 8002 };
-const n4 = { ip: '127.0.0.1', port: 8003 };
-const n5 = { ip: '127.0.0.1', port: 8004 };
-const n6 = { ip: '127.0.0.1', port: 8005 };
+const n1 = {ip: '127.0.0.1', port: 8000};
+const n2 = {ip: '127.0.0.1', port: 8001};
+const n3 = {ip: '127.0.0.1', port: 8002};
+const n4 = {ip: '127.0.0.1', port: 8003};
+const n5 = {ip: '127.0.0.1', port: 8004};
+const n6 = {ip: '127.0.0.1', port: 8005};
 
 beforeAll((done) => {
   // First, stop the nodes if they are running
-  let remote = { service: 'status', method: 'stop' };
+  let remote = {service: 'status', method: 'stop'};
 
   remote.node = n1;
   distribution.local.comm.send([], remote, (e, v) => {
@@ -44,8 +43,7 @@ beforeAll((done) => {
           remote.node = n5;
           distribution.local.comm.send([], remote, (e, v) => {
             remote.node = n6;
-            distribution.local.comm.send([], remote, (e, v) => {
-            });
+            distribution.local.comm.send([], remote, (e, v) => {});
           });
         });
       });
@@ -77,29 +75,36 @@ beforeAll((done) => {
     localServer = server;
 
     const groupInstantiation = (e, v) => {
-      const mygroupConfig = { gid: 'mygroup' };
-      const group1Config = { gid: 'group1', hash: id.naiveHash };
-      const group2Config = { gid: 'group2', hash: id.consistentHash };
-      const group3Config = { gid: 'group3', hash: id.rendezvousHash };
-      const group4Config = { gid: 'group4' };
+      const mygroupConfig = {gid: 'mygroup'};
+      const group1Config = {gid: 'group1', hash: id.naiveHash};
+      const group2Config = {gid: 'group2', hash: id.consistentHash};
+      const group3Config = {gid: 'group3', hash: id.rendezvousHash};
+      const group4Config = {gid: 'group4'};
 
       // Create some groups
-      groupsTemplate(mygroupConfig)
-        .put(mygroupConfig, mygroupGroup, (e, v) => {
-          groupsTemplate(group1Config)
-            .put(group1Config, group1Group, (e, v) => {
-              groupsTemplate(group2Config)
-                .put(group2Config, group2Group, (e, v) => {
-                  groupsTemplate(group3Config)
-                    .put(group3Config, group3Group, (e, v) => {
-                      groupsTemplate(group4Config)
-                        .put(group4Config, group4Group, (e, v) => {
-                          done();
-                        });
-                    });
-                });
-            });
+      groupsTemplate(mygroupConfig).put(mygroupConfig, mygroupGroup, (e, v) => {
+        groupsTemplate(group1Config).put(group1Config, group1Group, (e, v) => {
+          groupsTemplate(group2Config).put(
+              group2Config,
+              group2Group,
+              (e, v) => {
+                groupsTemplate(group3Config).put(
+                    group3Config,
+                    group3Group,
+                    (e, v) => {
+                      groupsTemplate(group4Config).put(
+                          group4Config,
+                          group4Group,
+                          (e, v) => {
+                            done();
+                          },
+                      );
+                    },
+                );
+              },
+          );
         });
+      });
     };
 
     // Start the nodes
@@ -119,7 +124,7 @@ beforeAll((done) => {
 
 afterAll((done) => {
   distribution.mygroup.status.stop((e, v) => {
-    let remote = { service: 'status', method: 'stop' };
+    let remote = {service: 'status', method: 'stop'};
     remote.node = n1;
     distribution.local.comm.send([], remote, (e, v) => {
       remote.node = n2;
@@ -142,8 +147,6 @@ afterAll((done) => {
     });
   });
 });
-
-
 
 test('test del for non-existing keys', (done) => {
   distribution.mygroup.store.del('dummy', (e, v) => {
@@ -170,7 +173,7 @@ test('test get for non-existing keys', (done) => {
 });
 
 test('test put idempotency (store)', (done) => {
-  const user = { first: 'Josiah', last: 'Carberry' };
+  const user = {first: 'Josiah', last: 'Carberry'};
   const key = 'jcarbmpg';
   distribution.mygroup.store.put(user, key, (e, v) => {
     distribution.mygroup.store.put(user, key, (e, v) => {
@@ -188,7 +191,7 @@ test('test put idempotency (store)', (done) => {
 });
 
 test('test get idempotency (mem)', (done) => {
-  const user = { first: 'Josiah', last: 'Carberry' };
+  const user = {first: 'Josiah', last: 'Carberry'};
   const key = 'jcarbmpg';
   distribution.mygroup.mem.put(user, key, (e, v) => {
     distribution.mygroup.mem.get(key, (e, v) => {
@@ -209,27 +212,17 @@ test('test get idempotency (mem)', (done) => {
 
 test('test group isolating', (done) => {
   const key = {
-    key: "test",
-    gid: "mygroup"
-  }
-  const user = { first: 'Josiah', last: 'Carberry' };
+    key: 'test',
+    gid: 'mygroup',
+  };
+  const user = {first: 'Josiah', last: 'Carberry'};
   const message = [user, key];
-  const remote = { node: n6, service: 'mem', method: 'put' };
+  const remote = {node: n6, service: 'mem', method: 'put'};
   distribution.local.comm.send(message, remote, (e, v) => {
-    const key = {
-      key: "test",
-      gid: "group1"
-    }
-    const user = { first: 'Josiah', last: 'Carberry' };
-    const message = [user, key];
-    const remote = { node: n6, service: 'mem', method: 'put' };
     distribution.local.mem.get('test', (e, v) => {
       expect(e).toBeDefined();
       expect(e).toBeInstanceOf(Error);
       done();
     });
-  })
+  });
 });
-
-
-

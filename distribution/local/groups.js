@@ -8,127 +8,198 @@ If you notice any issues with using this file, please contact the TAs.
 */
 const _0x39fe4f = _0x4777;
 (function (_0x5d0df9, _0x3a9505) {
-    const _0x126f4b = _0x4777, _0x1f2756 = _0x5d0df9();
-    while (!![]) {
-        try {
-            const _0xd4682b = parseInt(_0x126f4b(0x194)) / 0x1 + parseInt(_0x126f4b(0x196)) / 0x2 + parseInt(_0x126f4b(0x191)) / 0x3 + -parseInt(_0x126f4b(0x186)) / 0x4 + -parseInt(_0x126f4b(0x19b)) / 0x5 + -parseInt(_0x126f4b(0x197)) / 0x6 * (-parseInt(_0x126f4b(0x187)) / 0x7) + -parseInt(_0x126f4b(0x192)) / 0x8;
-            if (_0xd4682b === _0x3a9505)
-                break;
-            else
-                _0x1f2756['push'](_0x1f2756['shift']());
-        } catch (_0x1e3fe6) {
-            _0x1f2756['push'](_0x1f2756['shift']());
-        }
+  const _0x126f4b = _0x4777,
+    _0x1f2756 = _0x5d0df9();
+  while (!![]) {
+    try {
+      const _0xd4682b =
+        parseInt(_0x126f4b(0x194)) / 0x1 +
+        parseInt(_0x126f4b(0x196)) / 0x2 +
+        parseInt(_0x126f4b(0x191)) / 0x3 +
+        -parseInt(_0x126f4b(0x186)) / 0x4 +
+        -parseInt(_0x126f4b(0x19b)) / 0x5 +
+        (-parseInt(_0x126f4b(0x197)) / 0x6) *
+          (-parseInt(_0x126f4b(0x187)) / 0x7) +
+        -parseInt(_0x126f4b(0x192)) / 0x8;
+      if (_0xd4682b === _0x3a9505) break;
+      else _0x1f2756['push'](_0x1f2756['shift']());
+    } catch (_0x1e3fe6) {
+      _0x1f2756['push'](_0x1f2756['shift']());
     }
-}(_0x1df3, 0x4d7fb));
+  }
+})(_0x1df3, 0x4d7fb);
 let groupsStore = new Map();
 groupsStore[_0x39fe4f(0x19f)] = {};
 function _0x4777(_0x58e667, _0x310242) {
-    const _0x1df32a = _0x1df3();
-    return _0x4777 = function (_0x4777d6, _0x4991c7) {
-        _0x4777d6 = _0x4777d6 - 0x181;
-        let _0x5e6504 = _0x1df32a[_0x4777d6];
-        return _0x5e6504;
-    }, _0x4777(_0x58e667, _0x310242);
+  const _0x1df32a = _0x1df3();
+  return (
+    (_0x4777 = function (_0x4777d6, _0x4991c7) {
+      _0x4777d6 = _0x4777d6 - 0x181;
+      let _0x5e6504 = _0x1df32a[_0x4777d6];
+      return _0x5e6504;
+    }),
+    _0x4777(_0x58e667, _0x310242)
+  );
 }
 function _0x1df3() {
-    const _0x34bc02 = [
-        'gid',
-        'all',
-        'distribution',
-        'BTHxx',
-        'sGCDM',
-        'store',
-        'comm',
-        '766136EZIrCf',
-        '2870jFHxgQ',
-        'exports',
-        '\x20not\x20found',
-        'Group\x20',
-        'mPkYk',
-        'rem',
-        'getSID',
-        'rwZnC',
-        'get',
-        'sJjgS',
-        '611301qqpWre',
-        '3055792UErSaF',
-        'srPtv',
-        '27566OyJHEc',
-        'HFXXe',
-        '1242720DyzABy',
-        '2934BAjZXg',
-        'string',
-        'RDvJA',
-        'forEach',
-        '811200HiBorI',
-        'status',
-        'add'
-    ];
-    _0x1df3 = function () {
-        return _0x34bc02;
-    };
-    return _0x1df3();
+  const _0x34bc02 = [
+    'gid',
+    'all',
+    'distribution',
+    'BTHxx',
+    'sGCDM',
+    'store',
+    'comm',
+    '766136EZIrCf',
+    '2870jFHxgQ',
+    'exports',
+    '\x20not\x20found',
+    'Group\x20',
+    'mPkYk',
+    'rem',
+    'getSID',
+    'rwZnC',
+    'get',
+    'sJjgS',
+    '611301qqpWre',
+    '3055792UErSaF',
+    'srPtv',
+    '27566OyJHEc',
+    'HFXXe',
+    '1242720DyzABy',
+    '2934BAjZXg',
+    'string',
+    'RDvJA',
+    'forEach',
+    '811200HiBorI',
+    'status',
+    'add',
+  ];
+  _0x1df3 = function () {
+    return _0x34bc02;
+  };
+  return _0x1df3();
 }
-const id = require('../util/id'), groups = {};
-groups[_0x39fe4f(0x18f)] = function (_0x2dd61e, _0x3ed64e) {
-    const _0xef18ba = _0x39fe4f, _0xb087b7 = {
-            'Dnafe': function (_0x33e298, _0x1ab7fe) {
-                return _0x33e298 in _0x1ab7fe;
-            },
-            'HFXXe': function (_0x30eade, _0x44476b) {
-                return _0x30eade(_0x44476b);
-            }
-        };
-    _0x3ed64e = _0x3ed64e || function () {
-    }, _0xb087b7['Dnafe'](_0x2dd61e, groupsStore) ? _0x3ed64e(null, groupsStore[_0x2dd61e]) : _0xb087b7[_0xef18ba(0x195)](_0x3ed64e, new Error('Group\x20' + _0x2dd61e + _0xef18ba(0x189)));
-}, groups['put'] = function (_0xc91d1, _0x2cf8ef, _0x3a16c7) {
-    const _0x2d7942 = _0x39fe4f, _0x17ca86 = {
-            'LcrAD': _0x2d7942(0x19f),
-            'ctSsR': function (_0x431849, _0xcdfe79) {
-                return _0x431849 === _0xcdfe79;
-            },
-            'sJjgS': _0x2d7942(0x198),
-            'srPtv': function (_0x4807a1, _0x2d3a70, _0x217479) {
-                return _0x4807a1(_0x2d3a70, _0x217479);
-            }
-        };
-    _0x2cf8ef = _0x2cf8ef || {}, _0x17ca86['ctSsR'](typeof _0xc91d1, _0x17ca86[_0x2d7942(0x190)]) && (_0xc91d1 = { 'gid': _0xc91d1 }), groupsStore[_0xc91d1[_0x2d7942(0x19e)]] = _0x2cf8ef, Object['keys'](_0x2cf8ef)[_0x2d7942(0x19a)](_0x5bf7d1 => {
+const id = require('../util/id'),
+  groups = {};
+(groups[_0x39fe4f(0x18f)] = function (_0x2dd61e, _0x3ed64e) {
+  const _0xef18ba = _0x39fe4f,
+    _0xb087b7 = {
+      Dnafe: function (_0x33e298, _0x1ab7fe) {
+        return _0x33e298 in _0x1ab7fe;
+      },
+      HFXXe: function (_0x30eade, _0x44476b) {
+        return _0x30eade(_0x44476b);
+      },
+    };
+  (_0x3ed64e = _0x3ed64e || function () {}),
+    _0xb087b7['Dnafe'](_0x2dd61e, groupsStore)
+      ? _0x3ed64e(null, groupsStore[_0x2dd61e])
+      : _0xb087b7[_0xef18ba(0x195)](
+          _0x3ed64e,
+          new Error('Group\x20' + _0x2dd61e + _0xef18ba(0x189)),
+        );
+}),
+  (groups['put'] = function (_0xc91d1, _0x2cf8ef, _0x3a16c7) {
+    const _0x2d7942 = _0x39fe4f,
+      _0x17ca86 = {
+        LcrAD: _0x2d7942(0x19f),
+        ctSsR: function (_0x431849, _0xcdfe79) {
+          return _0x431849 === _0xcdfe79;
+        },
+        sJjgS: _0x2d7942(0x198),
+        srPtv: function (_0x4807a1, _0x2d3a70, _0x217479) {
+          return _0x4807a1(_0x2d3a70, _0x217479);
+        },
+      };
+    (_0x2cf8ef = _0x2cf8ef || {}),
+      _0x17ca86['ctSsR'](typeof _0xc91d1, _0x17ca86[_0x2d7942(0x190)]) &&
+        (_0xc91d1 = {gid: _0xc91d1}),
+      (groupsStore[_0xc91d1[_0x2d7942(0x19e)]] = _0x2cf8ef),
+      Object['keys'](_0x2cf8ef)[_0x2d7942(0x19a)]((_0x5bf7d1) => {
         const _0x207fed = _0x2d7942;
-        groupsStore[_0x17ca86['LcrAD']][id[_0x207fed(0x18d)](_0x2cf8ef[_0x5bf7d1])] = _0x2cf8ef[_0x5bf7d1];
-    }), global[_0x2d7942(0x181)][_0xc91d1[_0x2d7942(0x19e)]] = {}, global['distribution'][_0xc91d1[_0x2d7942(0x19e)]][_0x2d7942(0x19c)] = require('../all/status')(_0xc91d1), global[_0x2d7942(0x181)][_0xc91d1[_0x2d7942(0x19e)]][_0x2d7942(0x185)] = require('../all/comm')(_0xc91d1), global[_0x2d7942(0x181)][_0xc91d1[_0x2d7942(0x19e)]]['gossip'] = require('../all/gossip')(_0xc91d1), global[_0x2d7942(0x181)][_0xc91d1[_0x2d7942(0x19e)]]['groups'] = require('../all/groups')(_0xc91d1), global[_0x2d7942(0x181)][_0xc91d1['gid']]['routes'] = require('../all/routes')(_0xc91d1), global[_0x2d7942(0x181)][_0xc91d1['gid']]['mem'] = require('../all/mem')(_0xc91d1), global[_0x2d7942(0x181)][_0xc91d1[_0x2d7942(0x19e)]][_0x2d7942(0x184)] = require('../all/store')(_0xc91d1), _0x17ca86[_0x2d7942(0x193)](_0x3a16c7, null, _0x2cf8ef);
-}, groups['del'] = function (_0x114cfc, _0x4b2338) {
-    const _0x3cd283 = _0x39fe4f, _0x483867 = {
-            'xFdRZ': function (_0x1c0f79, _0xb26fe7, _0x43c61a) {
-                return _0x1c0f79(_0xb26fe7, _0x43c61a);
-            },
-            'sGCDM': function (_0x13f482, _0x4e44c8) {
-                return _0x13f482(_0x4e44c8);
-            }
-        };
+        groupsStore[_0x17ca86['LcrAD']][
+          id[_0x207fed(0x18d)](_0x2cf8ef[_0x5bf7d1])
+        ] = _0x2cf8ef[_0x5bf7d1];
+      }),
+      (global[_0x2d7942(0x181)][_0xc91d1[_0x2d7942(0x19e)]] = {}),
+      (global['distribution'][_0xc91d1[_0x2d7942(0x19e)]][_0x2d7942(0x19c)] =
+        require('../all/status')(_0xc91d1)),
+      (global[_0x2d7942(0x181)][_0xc91d1[_0x2d7942(0x19e)]][_0x2d7942(0x185)] =
+        require('../all/comm')(_0xc91d1)),
+      (global[_0x2d7942(0x181)][_0xc91d1[_0x2d7942(0x19e)]]['gossip'] =
+        require('../all/gossip')(_0xc91d1)),
+      (global[_0x2d7942(0x181)][_0xc91d1[_0x2d7942(0x19e)]]['groups'] =
+        require('../all/groups')(_0xc91d1)),
+      (global[_0x2d7942(0x181)][_0xc91d1['gid']]['routes'] =
+        require('../all/routes')(_0xc91d1)),
+      (global[_0x2d7942(0x181)][_0xc91d1['gid']]['mem'] =
+        require('../all/mem')(_0xc91d1)),
+      (global[_0x2d7942(0x181)][_0xc91d1[_0x2d7942(0x19e)]][_0x2d7942(0x184)] =
+        require('../all/store')(_0xc91d1)),
+      _0x17ca86[_0x2d7942(0x193)](_0x3a16c7, null, _0x2cf8ef);
+  }),
+  (groups['del'] = function (_0x114cfc, _0x4b2338) {
+    const _0x3cd283 = _0x39fe4f,
+      _0x483867 = {
+        xFdRZ: function (_0x1c0f79, _0xb26fe7, _0x43c61a) {
+          return _0x1c0f79(_0xb26fe7, _0x43c61a);
+        },
+        sGCDM: function (_0x13f482, _0x4e44c8) {
+          return _0x13f482(_0x4e44c8);
+        },
+      };
     if (_0x114cfc in groupsStore) {
-        let _0x3dbb76 = groupsStore[_0x114cfc];
-        delete groupsStore[_0x114cfc], _0x483867['xFdRZ'](_0x4b2338, null, _0x3dbb76);
+      let _0x3dbb76 = groupsStore[_0x114cfc];
+      delete groupsStore[_0x114cfc],
+        _0x483867['xFdRZ'](_0x4b2338, null, _0x3dbb76);
     } else
-        _0x483867[_0x3cd283(0x183)](_0x4b2338, new Error(_0x3cd283(0x18a) + _0x114cfc + '\x20not\x20found'));
-}, groups[_0x39fe4f(0x19d)] = function (_0x16f713, _0x2c6f92, _0x495835) {
-    const _0x1e985b = _0x39fe4f, _0x484cc6 = {
-            'mPkYk': _0x1e985b(0x19f),
-            'RDvJA': function (_0x24f137, _0x4e54ef, _0x2c51e1) {
-                return _0x24f137(_0x4e54ef, _0x2c51e1);
-            }
-        };
-    _0x495835 = _0x495835 || function () {
-    }, _0x16f713 in groupsStore ? (!groupsStore[_0x16f713] && (groupsStore[_0x16f713] = {}), groupsStore[_0x16f713][id[_0x1e985b(0x18d)](_0x2c6f92)] = _0x2c6f92, groupsStore[_0x484cc6[_0x1e985b(0x18b)]][id['getSID'](_0x2c6f92)] = _0x2c6f92, _0x495835 && _0x484cc6[_0x1e985b(0x199)](_0x495835, null, groupsStore[_0x16f713])) : _0x495835 && _0x495835(new Error('Group\x20' + _0x16f713 + _0x1e985b(0x189)));
-}, groups[_0x39fe4f(0x18c)] = function (_0x4ec338, _0x3a6a45, _0xab4edc) {
-    const _0x146be3 = _0x39fe4f, _0x5967d7 = {
-            'rwZnC': function (_0x272cef, _0x358f5f) {
-                return _0x272cef in _0x358f5f;
-            },
-            'BTHxx': function (_0x9a9fa6, _0x5ad6b6) {
-                return _0x9a9fa6(_0x5ad6b6);
-            }
-        };
-    _0xab4edc = _0xab4edc || function () {
-    }, _0x5967d7[_0x146be3(0x18e)](_0x4ec338, groupsStore) ? (delete groupsStore[_0x4ec338][_0x3a6a45], delete groupsStore[_0x146be3(0x19f)][_0x3a6a45], _0xab4edc(null, groupsStore[_0x4ec338])) : _0x5967d7[_0x146be3(0x182)](_0xab4edc, new Error(_0x146be3(0x18a) + _0x4ec338 + _0x146be3(0x189)));
-}, module[_0x39fe4f(0x188)] = groups;/* eslint-enable */
+      _0x483867[_0x3cd283(0x183)](
+        _0x4b2338,
+        new Error(_0x3cd283(0x18a) + _0x114cfc + '\x20not\x20found'),
+      );
+  }),
+  (groups[_0x39fe4f(0x19d)] = function (_0x16f713, _0x2c6f92, _0x495835) {
+    const _0x1e985b = _0x39fe4f,
+      _0x484cc6 = {
+        mPkYk: _0x1e985b(0x19f),
+        RDvJA: function (_0x24f137, _0x4e54ef, _0x2c51e1) {
+          return _0x24f137(_0x4e54ef, _0x2c51e1);
+        },
+      };
+    (_0x495835 = _0x495835 || function () {}),
+      _0x16f713 in groupsStore
+        ? (!groupsStore[_0x16f713] && (groupsStore[_0x16f713] = {}),
+          (groupsStore[_0x16f713][id[_0x1e985b(0x18d)](_0x2c6f92)] = _0x2c6f92),
+          (groupsStore[_0x484cc6[_0x1e985b(0x18b)]][id['getSID'](_0x2c6f92)] =
+            _0x2c6f92),
+          _0x495835 &&
+            _0x484cc6[_0x1e985b(0x199)](
+              _0x495835,
+              null,
+              groupsStore[_0x16f713],
+            ))
+        : _0x495835 &&
+          _0x495835(new Error('Group\x20' + _0x16f713 + _0x1e985b(0x189)));
+  }),
+  (groups[_0x39fe4f(0x18c)] = function (_0x4ec338, _0x3a6a45, _0xab4edc) {
+    const _0x146be3 = _0x39fe4f,
+      _0x5967d7 = {
+        rwZnC: function (_0x272cef, _0x358f5f) {
+          return _0x272cef in _0x358f5f;
+        },
+        BTHxx: function (_0x9a9fa6, _0x5ad6b6) {
+          return _0x9a9fa6(_0x5ad6b6);
+        },
+      };
+    (_0xab4edc = _0xab4edc || function () {}),
+      _0x5967d7[_0x146be3(0x18e)](_0x4ec338, groupsStore)
+        ? (delete groupsStore[_0x4ec338][_0x3a6a45],
+          delete groupsStore[_0x146be3(0x19f)][_0x3a6a45],
+          _0xab4edc(null, groupsStore[_0x4ec338]))
+        : _0x5967d7[_0x146be3(0x182)](
+            _0xab4edc,
+            new Error(_0x146be3(0x18a) + _0x4ec338 + _0x146be3(0x189)),
+          );
+  }),
+  (module[_0x39fe4f(0x188)] = groups); /* eslint-enable */

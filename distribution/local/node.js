@@ -10,7 +10,6 @@ const serialization = require('../util/serialization');
     After your node has booted, you should call the callback.
 */
 
-
 function isValidBody(body) {
   error = undefined;
   if (body.length === 0) {
@@ -25,7 +24,6 @@ function isValidBody(body) {
 
   return error;
 }
-
 
 const start = function(onStart) {
   const server = http.createServer((req, res) => {
@@ -43,16 +41,13 @@ const start = function(onStart) {
       The url will have the form: http://node_ip:node_port/service/method
     */
 
-
     // Write some code...
-
 
     const pathname = url.parse(req.url).pathname;
     const [, service, method] = pathname.split('/');
 
     console.log(`[SERVER] (${global.nodeConfig.ip}:${global.nodeConfig.port})
         Request: ${service}:${method}`);
-
 
     /*
 
@@ -71,7 +66,6 @@ const start = function(onStart) {
 
     // Write some code...
 
-
     let body = [];
 
     req.on('data', (chunk) => {
@@ -83,7 +77,7 @@ const start = function(onStart) {
 
       let error;
 
-      if (error = isValidBody(body)) {
+      if ((error = isValidBody(body))) {
         res.end(serialization.serialize(error));
         return;
       }
@@ -91,7 +85,6 @@ const start = function(onStart) {
       body = JSON.parse(body);
       body = serialization.deserialize(body);
       let args = body;
-
 
       /* Here, you can handle the service requests. */
 
@@ -115,16 +108,13 @@ const start = function(onStart) {
 
         // Write some code...
 
-
         console.log(`[SERVER] Args: ${JSON.stringify(args)}
             ServiceCallback: ${serviceCallback}`);
 
         service[method](...args, serviceCallback);
       });
     });
-
   });
-
 
   // Write some code...
 
@@ -138,7 +128,9 @@ const start = function(onStart) {
   */
 
   server.listen(global.nodeConfig.port, global.nodeConfig.ip, () => {
-    console.log(`Server running at http://${global.nodeConfig.ip}:${global.nodeConfig.port}/`);
+    console.log(
+        `Server running at http://${global.nodeConfig.ip}:${global.nodeConfig.port}/`,
+    );
     onStart(server);
   });
 };

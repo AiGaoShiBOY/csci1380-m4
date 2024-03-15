@@ -225,7 +225,8 @@ test('(9 pts) RPC1', (done) => {
   };
 
   const addOneRPC = distribution.util.wire.createRPC(
-      distribution.util.wire.toAsync(addOne));
+      distribution.util.wire.toAsync(addOne),
+  );
 
   const rpcService = {
     addOneRPC: addOneRPC,
@@ -378,7 +379,8 @@ test('(2 pts) local.groups.put(dummy)/add(n1)/get(dummy)', (done) => {
 
     distribution.local.groups.add('dummy', n1, (e, v) => {
       const expectedGroup = {
-        ...g, ...{[id.getSID(n1)]: n1},
+        ...g,
+        ...{[id.getSID(n1)]: n1},
       };
 
       distribution.local.groups.get('dummy', (e, v) => {
@@ -525,11 +527,7 @@ test('(2 pts) local.mem.get(no key)', (done) => {
     {first: 'John', last: 'Krasinski'},
     {first: 'Julie', last: 'Bowen'},
   ];
-  const keys = [
-    'ewatson',
-    'jkrasinski',
-    'jbowen',
-  ];
+  const keys = ['ewatson', 'jkrasinski', 'jbowen'];
 
   distribution.local.mem.put(users[0], keys[0], (e, v) => {
     distribution.local.mem.put(users[1], keys[1], (e, v) => {
@@ -563,7 +561,6 @@ test('(0.5 pts) local.mem.put(no key)', (done) => {
     });
   });
 });
-
 
 // ---store---
 
@@ -669,11 +666,7 @@ test('(2 pts) local.store.get(no key)', (done) => {
     {first: 'John', last: 'Krasinski'},
     {first: 'Julie', last: 'Bowen'},
   ];
-  const keys = [
-    'ewatson',
-    'jkrasinski',
-    'jbowen',
-  ];
+  const keys = ['ewatson', 'jkrasinski', 'jbowen'];
 
   distribution.local.store.put(users[0], keys[0], (e, v) => {
     distribution.local.store.put(users[1], keys[1], (e, v) => {

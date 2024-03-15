@@ -13,7 +13,6 @@ const group3Group = {};
 // This group is used for {adding,removing} {groups,nodes}
 const group4Group = {};
 
-
 /*
    This hack is necessary since we can not
    gracefully stop the local listening node.
@@ -44,8 +43,7 @@ beforeAll((done) => {
           remote.node = n5;
           distribution.local.comm.send([], remote, (e, v) => {
             remote.node = n6;
-            distribution.local.comm.send([], remote, (e, v) => {
-            });
+            distribution.local.comm.send([], remote, (e, v) => {});
           });
         });
       });
@@ -84,22 +82,29 @@ beforeAll((done) => {
       const group4Config = {gid: 'group4'};
 
       // Create some groups
-      groupsTemplate(mygroupConfig)
-          .put(mygroupConfig, mygroupGroup, (e, v) => {
-            groupsTemplate(group1Config)
-                .put(group1Config, group1Group, (e, v) => {
-                  groupsTemplate(group2Config)
-                      .put(group2Config, group2Group, (e, v) => {
-                        groupsTemplate(group3Config)
-                            .put(group3Config, group3Group, (e, v) => {
-                              groupsTemplate(group4Config)
-                                  .put(group4Config, group4Group, (e, v) => {
-                                    done();
-                                  });
-                            });
-                      });
-                });
-          });
+      groupsTemplate(mygroupConfig).put(mygroupConfig, mygroupGroup, (e, v) => {
+        groupsTemplate(group1Config).put(group1Config, group1Group, (e, v) => {
+          groupsTemplate(group2Config).put(
+              group2Config,
+              group2Group,
+              (e, v) => {
+                groupsTemplate(group3Config).put(
+                    group3Config,
+                    group3Group,
+                    (e, v) => {
+                      groupsTemplate(group4Config).put(
+                          group4Config,
+                          group4Group,
+                          (e, v) => {
+                            done();
+                          },
+                      );
+                    },
+                );
+              },
+          );
+        });
+      });
     };
 
     // Start the nodes
@@ -295,7 +300,8 @@ test('(2 pts) all.groups.put(dummy)/add(n1)/get(dummy)', (done) => {
 
     distribution.group4.groups.add('dummygpag', n1, (e, v) => {
       let expectedGroup = {
-        ...g, ...{[id.getSID(n1)]: n1},
+        ...g,
+        ...{[id.getSID(n1)]: n1},
       };
 
       distribution.group4.groups.get('dummygpag', (e, v) => {
@@ -352,7 +358,7 @@ test('(2 pts) all.routes.put(echo)', (done) => {
   distribution.mygroup.routes.put(echoService, 'echo', (e, v) => {
     const n1 = {ip: '127.0.0.1', port: 8000};
     const n2 = {ip: '127.0.0.1', port: 8001};
-    const n3 ={ip: '127.0.0.1', port: 8002};
+    const n3 = {ip: '127.0.0.1', port: 8002};
     const r1 = {node: n1, service: 'routes', method: 'get'};
     const r2 = {node: n2, service: 'routes', method: 'get'};
     const r3 = {node: n3, service: 'routes', method: 'get'};
@@ -466,17 +472,16 @@ test('(2 pts) all.status.spawn/stop()', (done) => {
           remote = {node: nodeToSpawn, service: 'status', method: 'get'};
 
           // Ping the node again, it shouldn't respond
-          distribution.local.comm.send(message,
-              remote, (e, v) => {
-                try {
-                  expect(e).toBeDefined();
-                  expect(e).toBeInstanceOf(Error);
-                  expect(v).toBeFalsy();
-                  done();
-                } catch (error) {
-                  done(error);
-                }
-              });
+          distribution.local.comm.send(message, remote, (e, v) => {
+            try {
+              expect(e).toBeDefined();
+              expect(e).toBeInstanceOf(Error);
+              expect(v).toBeFalsy();
+              done();
+            } catch (error) {
+              done(error);
+            }
+          });
         });
       });
     });
@@ -488,10 +493,7 @@ test('(2 pts) all.status.spawn/stop()', (done) => {
 test('(6 pts) all.gossip.send()', (done) => {
   distribution.mygroup.groups.put('newgroup', {}, (e, v) => {
     let newNode = {ip: '127.0.0.1', port: 4444};
-    let message = [
-      'newgroup',
-      newNode,
-    ];
+    let message = ['newgroup', newNode];
 
     let remote = {service: 'groups', method: 'add'};
     distribution.mygroup.gossip.send(message, remote, (e, v) => {
@@ -636,11 +638,7 @@ test('(2.5 pts) all.mem.get(no key)', (done) => {
     {first: 'John', last: 'Krasinski'},
     {first: 'Julie', last: 'Bowen'},
   ];
-  const keys = [
-    'ewatson',
-    'jkrasinski',
-    'jbowen',
-  ];
+  const keys = ['ewatson', 'jkrasinski', 'jbowen'];
 
   distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
     try {
@@ -807,11 +805,7 @@ test('(2 pts) all.store.get(no key)', (done) => {
     {first: 'John', last: 'Krasinski'},
     {first: 'Julie', last: 'Bowen'},
   ];
-  const keys = [
-    'ewatsonsgnk',
-    'jkrasinskisgnk',
-    'jbowensgnk',
-  ];
+  const keys = ['ewatsonsgnk', 'jkrasinskisgnk', 'jbowensgnk'];
 
   distribution.mygroup.store.put(users[0], keys[0], (e, v) => {
     distribution.mygroup.store.put(users[1], keys[1], (e, v) => {
@@ -846,11 +840,9 @@ test('(0.5 pts) all.store.put(no key)', (done) => {
   });
 });
 
-
 // // ---reconf / correct object placement---
 
-test(
-    '(1.5 pts) all.store.put(jcarb)/local.comm.send(store.get(jcarb))',
+test('(1.5 pts) all.store.put(jcarb)/local.comm.send(store.get(jcarb))',
     (done) => {
       const user = {first: 'Josiah', last: 'Carberry'};
       const key = 'jcarbspcs';
@@ -860,7 +852,7 @@ test(
 
       distribution.group3.store.put(user, key, (e, v) => {
         const nid = id.rendezvousHash(kid, nids);
-        const pickedNode = nodes.filter((node)=> id.getNID(node) === nid)[0];
+        const pickedNode = nodes.filter((node) => id.getNID(node) === nid)[0];
         const remote = {node: pickedNode, service: 'store', method: 'get'};
         const message = [{gid: 'group3', key: key}];
 
@@ -874,8 +866,7 @@ test(
           }
         });
       });
-    },
-);
+    });
 
 test('(2 pts) all.store.reconf(naiveHash)', (done) => {
   //  ________________________________________
@@ -921,8 +912,8 @@ test('(2 pts) all.store.reconf(naiveHash)', (done) => {
   );
   // key 0 ends up on n6, while keys 1-4 end up on n4
   // (the following console.logs should confirm that)
-  nodesPicked.forEach(
-      (node, key) => console.log('BEFORE! key: ', key, 'node: ', node),
+  nodesPicked.forEach((node, key) =>
+    console.log('BEFORE! key: ', key, 'node: ', node),
   );
 
   // Then, we remove n5 from the list of nodes,
@@ -938,8 +929,8 @@ test('(2 pts) all.store.reconf(naiveHash)', (done) => {
 
   // After removal, all keys end up on n6
   // (Again, the console.logs should be consistent with that!)
-  nodesPickedAfter.forEach(
-      (node, key) => console.log('AFTER! key: ', key, 'node: ', node),
+  nodesPickedAfter.forEach((node, key) =>
+    console.log('AFTER! key: ', key, 'node: ', node),
   );
 
   // This function will be called after we put items in nodes
@@ -1010,16 +1001,13 @@ test('(2 pts) all.store.reconf(naiveHash)', (done) => {
     distribution.group1.store.put(users[1], keys[1], (e, v) => {
       distribution.group1.store.put(users[2], keys[2], (e, v) => {
         distribution.group1.store.put(users[3], keys[3], (e, v) => {
-          distribution.group1.store.put(users[4], keys[4], (e, v)=> {
+          distribution.group1.store.put(users[4], keys[4], (e, v) => {
             // We need to pass a copy of the group's
             // nodes before the changes to reconf()
             const groupCopy = {...group1Group};
-            distribution.group1.groups.rem(
-                'group1',
-                id.getSID(n5),
-                (e, v) => {
-                  distribution.group1.store.reconf(groupCopy, checkPlacement);
-                });
+            distribution.group1.groups.rem('group1', id.getSID(n5), (e, v) => {
+              distribution.group1.store.reconf(groupCopy, checkPlacement);
+            });
           });
         });
       });

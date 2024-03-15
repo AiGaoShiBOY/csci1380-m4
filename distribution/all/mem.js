@@ -1,6 +1,6 @@
-const { id } = require('../util/util');
+const {id} = require('../util/util');
 
-const mem = function (config) {
+const mem = function(config) {
   let context = {};
   context.gid = config.gid || 'all';
   context.hash = config.hash || id.naiveHash;
@@ -9,8 +9,8 @@ const mem = function (config) {
   //   throw new Error('Distribution not found');
   // }
   return {
-    put: function (value, key, callback) {
-      callback = callback || function () { };
+    put: function(value, key, callback) {
+      callback = callback || function() {};
       distribution.local.groups.get(context.gid, (e, v) => {
         if (e) {
           callback(e, null);
@@ -33,12 +33,12 @@ const mem = function (config) {
 
         const keyWithGid = {
           key: key,
-          gid: context.gid
-        }
+          gid: context.gid,
+        };
 
         const message = [value, keyWithGid];
         const remoteWithNode = {
-          node: { ip: targetNode.ip, port: targetNode.port },
+          node: {ip: targetNode.ip, port: targetNode.port},
           service: 'mem',
           method: 'put',
         };
@@ -52,8 +52,8 @@ const mem = function (config) {
         });
       });
     },
-    get: function (key, callback) {
-      callback = callback || function () { };
+    get: function(key, callback) {
+      callback = callback || function() {};
       distribution.local.groups.get(context.gid, (e, v) => {
         if (e) {
           callback(e, null);
@@ -74,15 +74,15 @@ const mem = function (config) {
 
           const keyWithGid = {
             key: key,
-            gid: context.gid
-          }
+            gid: context.gid,
+          };
           const message = [keyWithGid];
           const remoteWithNode = {
-            node: { ip: targetNode.ip, port: targetNode.port },
+            node: {ip: targetNode.ip, port: targetNode.port},
             service: 'mem',
             method: 'get',
           };
-          //send to the specified node to get the value
+          // send to the specified node to get the value
           distribution.local.comm.send(message, remoteWithNode, (e, v) => {
             if (e) {
               callback(e, null);
@@ -92,16 +92,15 @@ const mem = function (config) {
             return;
           });
         } else {
-          // if the key is null, send the message to all 
           const keyWithGid = {
             key: key,
-            gid: context.gid
+            gid: context.gid,
           };
           const message = [keyWithGid];
-          const remote = { service: 'mem', method: 'get' }
+          const remote = {service: 'mem', method: 'get'};
           distribution[context.gid].comm.send(message, remote, (e, v) => {
             if (!v || Object.keys(v).length === 0) {
-              callback(new Error('There is no data stored of given group', null));
+              callback(new Error('There is no data of given group', null));
               return;
             }
             const allKeys = [].concat(...Object.values(v));
@@ -111,8 +110,8 @@ const mem = function (config) {
         }
       });
     },
-    del: function (key, callback) {
-      callback = callback || function () { };
+    del: function(key, callback) {
+      callback = callback || function() {};
       distribution.local.groups.get(context.gid, (e, v) => {
         if (e) {
           callback(e, null);
@@ -131,17 +130,17 @@ const mem = function (config) {
 
         const keyWithGid = {
           key: key,
-          gid: context.gid
-        }
+          gid: context.gid,
+        };
 
         const message = [keyWithGid];
         const remoteWithNode = {
-          node: { ip: targetNode.ip, port: targetNode.port },
+          node: {ip: targetNode.ip, port: targetNode.port},
           service: 'mem',
           method: 'del',
         };
 
-        //send to the specified node to get the value
+        // send to the specified node to get the value
         distribution.local.comm.send(message, remoteWithNode, (e, v) => {
           if (e) {
             callback(e, null);
@@ -152,8 +151,8 @@ const mem = function (config) {
         });
       });
     },
-    reconf: function (originalGroup, callback) {
-      callback = callback || function () { };
+    reconf: function(originalGroup, callback) {
+      callback = callback || function() {};
       distribution.local.groups.get(context.gid, (e, v) => {
         if (e) {
           callback(e, null);
@@ -170,7 +169,6 @@ const mem = function (config) {
             return;
           }
 
-
           const oldNids = oldGroup.map((node) => id.getNID(node));
           const newNids = newGroup.map((node) => id.getNID(node));
 
@@ -178,7 +176,6 @@ const mem = function (config) {
 
           // iterate every key
           v.forEach((key) => {
-
             const kid = id.getID(key);
             const oldHash = context.hash(kid, oldNids.slice());
             const newHash = context.hash(kid, newNids.slice());
@@ -191,12 +188,12 @@ const mem = function (config) {
 
               const keyWithGid = {
                 key: key,
-                gid: context.gid
-              }
+                gid: context.gid,
+              };
 
               const message = [keyWithGid];
               const oldRemote = {
-                node: { ip: oldNode.ip, port: oldNode.port },
+                node: {ip: oldNode.ip, port: oldNode.port},
                 service: 'mem',
                 method: 'del',
               };
@@ -213,16 +210,14 @@ const mem = function (config) {
                 newIdx = newNids.indexOf(newHash);
                 newNode = newGroup[newIdx];
 
-
-
                 const newKeyWithGid = {
                   key: key,
-                  gid: context.gid
-                }
+                  gid: context.gid,
+                };
 
                 const message = [value, newKeyWithGid];
                 const newRemote = {
-                  node: { ip: newNode.ip, port: newNode.port },
+                  node: {ip: newNode.ip, port: newNode.port},
                   service: 'mem',
                   method: 'put',
                 };
@@ -242,7 +237,7 @@ const mem = function (config) {
           });
         });
       });
-    }
+    },
   };
 };
 

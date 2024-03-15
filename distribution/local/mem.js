@@ -1,19 +1,18 @@
-const { id, serialize } = require('../util/util')
+const {id} = require('../util/util');
 
 const mem = {};
 
 global.localMapSet = new Map();
 localMapSet.set('local', new Map());
 
-mem.put = function (value, key, callback) {
-  callback = callback || function () { };
+mem.put = function(value, key, callback) {
+  callback = callback || function() {};
   let realKey;
   let gid;
   if (typeof key === 'string' || !key) {
     realKey = key || id.getID(value);
     gid = 'local';
-  }
-  else {
+  } else {
     realKey = key.key || id.getID(value);
     gid = key.gid;
   }
@@ -33,15 +32,14 @@ mem.put = function (value, key, callback) {
   return;
 };
 
-mem.get = function (key, callback) {
-  callback = callback || function () { };
+mem.get = function(key, callback) {
+  callback = callback || function() {};
   let realKey;
   let gid;
   if (typeof key === 'string' || !key) {
     realKey = key;
     gid = 'local';
-  }
-  else {
+  } else {
     realKey = key.key;
     gid = key.gid;
   }
@@ -55,22 +53,26 @@ mem.get = function (key, callback) {
     return;
   }
   if (!localMap.has(realKey)) {
-    callback(new Error(`mem.get: Key ${realKey} ${JSON.stringify(localMap)}  ${JSON.stringify(global.nodeConfig)} not find`), null);
+    callback(
+        new Error(
+            `mem.get: Key not find`,
+        ),
+        null,
+    );
     return;
   }
   callback(null, localMap.get(realKey));
   return;
 };
 
-mem.del = function (key, callback) {
-  callback = callback || function () { };
+mem.del = function(key, callback) {
+  callback = callback || function() {};
   let realKey;
   let gid;
   if (typeof key === 'string' || !key) {
     realKey = key;
     gid = 'local';
-  }
-  else {
+  } else {
     realKey = key.key;
     gid = key.gid;
   }
@@ -87,6 +89,6 @@ mem.del = function (key, callback) {
   localMap.delete(realKey);
   callback(null, deletedVal);
   return;
-}
+};
 
 module.exports = mem;

@@ -14,4 +14,3 @@ test('(5 pts) eslint lint', async () => {
     throw new Error('Linting errors found');
   }
 });
-

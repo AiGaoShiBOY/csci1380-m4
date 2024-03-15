@@ -8,54 +8,73 @@ If you notice any issues with using this file, please contact the TAs.
 */
 const _0x5b2434 = _0x36f3;
 function _0x36f3(_0x104190, _0x19b61a) {
-    const _0x551515 = _0x5515();
-    return _0x36f3 = function (_0x36f387, _0xb4b613) {
-        _0x36f387 = _0x36f387 - 0x189;
-        let _0x4bd7b1 = _0x551515[_0x36f387];
-        return _0x4bd7b1;
-    }, _0x36f3(_0x104190, _0x19b61a);
+  const _0x551515 = _0x5515();
+  return (
+    (_0x36f3 = function (_0x36f387, _0xb4b613) {
+      _0x36f387 = _0x36f387 - 0x189;
+      let _0x4bd7b1 = _0x551515[_0x36f387];
+      return _0x4bd7b1;
+    }),
+    _0x36f3(_0x104190, _0x19b61a)
+  );
 }
 (function (_0x4ea1a7, _0x5c0d61) {
-    const _0x100c3f = _0x36f3, _0x23cc60 = _0x4ea1a7();
-    while (!![]) {
-        try {
-            const _0xa5a86f = parseInt(_0x100c3f(0x193)) / 0x1 * (parseInt(_0x100c3f(0x18c)) / 0x2) + -parseInt(_0x100c3f(0x18a)) / 0x3 + parseInt(_0x100c3f(0x18e)) / 0x4 * (parseInt(_0x100c3f(0x18f)) / 0x5) + -parseInt(_0x100c3f(0x191)) / 0x6 * (-parseInt(_0x100c3f(0x194)) / 0x7) + -parseInt(_0x100c3f(0x18b)) / 0x8 + -parseInt(_0x100c3f(0x192)) / 0x9 + -parseInt(_0x100c3f(0x18d)) / 0xa * (-parseInt(_0x100c3f(0x189)) / 0xb);
-            if (_0xa5a86f === _0x5c0d61)
-                break;
-            else
-                _0x23cc60['push'](_0x23cc60['shift']());
-        } catch (_0x39b80d) {
-            _0x23cc60['push'](_0x23cc60['shift']());
-        }
+  const _0x100c3f = _0x36f3,
+    _0x23cc60 = _0x4ea1a7();
+  while (!![]) {
+    try {
+      const _0xa5a86f =
+        (parseInt(_0x100c3f(0x193)) / 0x1) *
+          (parseInt(_0x100c3f(0x18c)) / 0x2) +
+        -parseInt(_0x100c3f(0x18a)) / 0x3 +
+        (parseInt(_0x100c3f(0x18e)) / 0x4) *
+          (parseInt(_0x100c3f(0x18f)) / 0x5) +
+        (-parseInt(_0x100c3f(0x191)) / 0x6) *
+          (-parseInt(_0x100c3f(0x194)) / 0x7) +
+        -parseInt(_0x100c3f(0x18b)) / 0x8 +
+        -parseInt(_0x100c3f(0x192)) / 0x9 +
+        (-parseInt(_0x100c3f(0x18d)) / 0xa) *
+          (-parseInt(_0x100c3f(0x189)) / 0xb);
+      if (_0xa5a86f === _0x5c0d61) break;
+      else _0x23cc60['push'](_0x23cc60['shift']());
+    } catch (_0x39b80d) {
+      _0x23cc60['push'](_0x23cc60['shift']());
     }
-}(_0x5515, 0x8482c));
-const comm = require('./comm'), groups = require('./groups'), routes = require('./routes'), status = require('./status'), gossip = require('./gossip'), mem = require('./mem'), store = require('./store');
+  }
+})(_0x5515, 0x8482c);
+const comm = require('./comm'),
+  groups = require('./groups'),
+  routes = require('./routes'),
+  status = require('./status'),
+  gossip = require('./gossip'),
+  mem = require('./mem'),
+  store = require('./store');
 module[_0x5b2434(0x190)] = {
-    'comm': comm,
-    'groups': groups,
-    'status': status,
-    'routes': routes,
-    'gossip': gossip,
-    'mem': mem,
-    'store': store
+  comm: comm,
+  groups: groups,
+  status: status,
+  routes: routes,
+  gossip: gossip,
+  mem: mem,
+  store: store,
 };
 function _0x5515() {
-    const _0x3c2bdb = [
-        '385829GWzZKe',
-        '7WSpAeT',
-        '275GenAPf',
-        '2414676bLHTRR',
-        '4816640lNZSNO',
-        '2NNFHFq',
-        '211530vxLkAj',
-        '68feFCng',
-        '298365BVrDlX',
-        'exports',
-        '1515918qWVtgZ',
-        '2088108djIsIg'
-    ];
-    _0x5515 = function () {
-        return _0x3c2bdb;
-    };
-    return _0x5515();
-}/* eslint-enable */
+  const _0x3c2bdb = [
+    '385829GWzZKe',
+    '7WSpAeT',
+    '275GenAPf',
+    '2414676bLHTRR',
+    '4816640lNZSNO',
+    '2NNFHFq',
+    '211530vxLkAj',
+    '68feFCng',
+    '298365BVrDlX',
+    'exports',
+    '1515918qWVtgZ',
+    '2088108djIsIg',
+  ];
+  _0x5515 = function () {
+    return _0x3c2bdb;
+  };
+  return _0x5515();
+} /* eslint-enable */
